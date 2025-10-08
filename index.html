@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect - Student Club Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-users"></i>
+                <span>CampusConnect</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#clubs" class="nav-link"><i class="fas fa-chess-queen"></i> Clubs</a>
+                <a href="#interviews" class="nav-link"><i class="fas fa-comments"></i> Interviews</a>
+                <a href="#projects" class="nav-link"><i class="fas fa-tasks"></i> Projects</a>
+                <a href="#set-operations" class="nav-link"><i class="fas fa-project-diagram"></i> Set Operations</a>
+                <a href="#analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <span id="userName">John Doe</span>
+                    <span id="userRole" class="user-role">Student</span>
+                </div>
+                <div class="role-selector">
+                    <select id="roleSwitch">
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="president">Club President</option>
+                    </select>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="dashboard-header">
+                <h1>CampusConnect Dashboard</h1>
+                <p>Welcome to your campus club management hub</p>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalStudents">50</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon clubs">
+                        <i class="fas fa-chess-queen"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalClubs">3</h3>
+                        <p>Active Clubs</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon interviews">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingInterviews">15</h3>
+                        <p>Pending Interviews</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon projects">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeProjects">2</h3>
+                        <p>Active Projects</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-btn" onclick="app.showSection('clubs')">
+                        <i class="fas fa-plus"></i>
+                        <span>Join Club</span>
+                    </button>
+                    <button class="action-btn" onclick="showScheduleInterviewModal()">
+                        <i class="fas fa-calendar"></i>
+                        <span>Schedule Interview</span>
+                    </button>
+                    <button class="action-btn" onclick="showAddProjectModal()">
+                        <i class="fas fa-rocket"></i>
+                        <span>Start Project</span>
+                    </button>
+                    <button class="action-btn" onclick="generateRecommendations()">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Get Recommendations</span>
+                    </button>
+                    <button class="action-btn" onclick="showRegistrationModal()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register User</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Set Operations Demo -->
+            <div class="set-operations-playground">
+                <h2>Set Operations Demo</h2>
+                <div class="set-operations-grid">
+                    <div class="set-operation-card">
+                        <h3>Union Operation</h3>
+                        <p>All unique students from multiple clubs</p>
+                        <button class="btn-primary" onclick="performUnionOperation()">Show Union</button>
+                        <div class="operation-result" id="unionResult"></div>
+                    </div>
+                    <div class="set-operation-card">
+                        <h3>Intersection Operation</h3>
+                        <p>Students common to multiple clubs</p>
+                        <button class="btn-primary" onclick="performIntersectionOperation()">Show Intersection</button>
+                        <div class="operation-result" id="intersectionResult"></div>
+                    </div>
+                    <div class="set-operation-card">
+                        <h3>Difference Operation</h3>
+                        <p>Students in one club but not in another</p>
+                        <button class="btn-primary" onclick="performDifferenceOperation()">Show Difference</button>
+                        <div class="operation-result" id="differenceResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clubs Section -->
+        <section id="clubs" class="section">
+            <div class="section-header">
+                <h2>Club Management</h2>
+                <div class="section-actions">
+                    <button class="btn-primary" onclick="showAddClubModal()">
+                        <i class="fas fa-plus"></i> Add Club
+                    </button>
+                </div>
+            </div>
+
+            <div class="clubs-grid" id="clubsGrid">
+                <!-- Clubs will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Interviews Section -->
+        <section id="interviews" class="section">
+            <div class="section-header">
+                <h2>Interview Management</h2>
+                <div class="section-actions">
+                    <button class="btn-primary" onclick="showScheduleInterviewModal()">
+                        <i class="fas fa-plus"></i> Schedule Interview
+                    </button>
+                </div>
+            </div>
+
+            <div class="interviews-container">
+                <div class="interview-stats">
+                    <div class="interview-stat">
+                        <span class="stat-number" id="scheduledInterviews">0</span>
+                        <span class="stat-label">Scheduled</span>
+                    </div>
+                    <div class="interview-stat">
+                        <span class="stat-number" id="completedInterviews">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="interview-stat">
+                        <span class="stat-number" id="passedInterviews">0</span>
+                        <span class="stat-label">Passed</span>
+                    </div>
+                </div>
+
+                <div class="interviews-list" id="interviewsList">
+                    <!-- Interviews will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <h2>Project Tracking</h2>
+                <div class="section-actions">
+                    <button class="btn-primary" onclick="showAddProjectModal()">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                </div>
+            </div>
+
+            <div class="projects-container">
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Set Operations Section -->
+        <section id="set-operations" class="section">
+            <div class="playground-container">
+                <div class="playground-header">
+                    <h1>Set Operations Playground</h1>
+                    <p>Visualize club membership relationships</p>
+                </div>
+
+                <div class="operation-selector">
+                    <div class="operation-tabs">
+                        <div class="operation-tab active" data-operation="intersection">Intersection (A ∩ B)</div>
+                        <div class="operation-tab" data-operation="union">Union (A ∪ B)</div>
+                        <div class="operation-tab" data-operation="difference">Difference (A - B)</div>
+                        <div class="operation-tab" data-operation="symmetric">Symmetric Difference (A Δ B)</div>
+                    </div>
+                </div>
+
+                <div class="operation-controls">
+                    <div class="club-selector">
+                        <label for="clubA">Club A</label>
+                        <select id="clubA">
+                            <option value="">Select Club</option>
+                            <option value="C1">Computer Science Club</option>
+                            <option value="C2">Basketball Team</option>
+                            <option value="C3">Debate Society</option>
+                        </select>
+                    </div>
+
+                    <div class="operation-symbol" id="operationSymbol">∩</div>
+
+                    <div class="club-selector">
+                        <label for="clubB">Club B</label>
+                        <select id="clubB">
+                            <option value="">Select Club</option>
+                            <option value="C1">Computer Science Club</option>
+                            <option value="C2">Basketball Team</option>
+                            <option value="C3">Debate Society</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="run-operation-btn" onclick="performSetOperation()">Run Operation</button>
+
+                <div class="operation-result-display">
+                    <h3>Operation Result: <span id="resultCount">0</span> students</h3>
+                    <div class="result-students" id="resultStudents">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <div class="section-header">
+                <h2>Analytics & Reports</h2>
+                <div class="section-actions">
+                    <button class="btn-primary" onclick="generateReport()">
+                        <i class="fas fa-download"></i> Export Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Club Participation</h3>
+                    <div class="chart-container">
+                        <div id="participationChart" class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 80%"><span>CS Club</span></div>
+                                <div class="chart-bar" style="height: 65%"><span>Basketball</span></div>
+                                <div class="chart-bar" style="height: 50%"><span>Debate</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="analytics-card">
+                    <h3>Membership Distribution</h3>
+                    <div class="chart-container">
+                        <div id="membershipChart" class="chart-placeholder">
+                            <div class="pie-chart">
+                                <div class="pie-segment multi-club" style="--percentage: 30;"></div>
+                                <div class="pie-segment single-club" style="--percentage: 50;"></div>
+                                <div class="pie-segment no-club" style="--percentage: 20;"></div>
+                                <div class="pie-center">
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            <div class="chart-legend">
+                                <div><span class="legend-color multi-club"></span> Multi-Club (30%)</div>
+                                <div><span class="legend-color single-club"></span> Single Club (50%)</div>
+                                <div><span class="legend-color no-club"></span> No Club (20%)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="analytics-card full-width">
+                    <h3>Club Performance Metrics</h3>
+                    <div class="metrics-grid" id="metricsGrid">
+                        <!-- Metrics will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="addClubModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Club</h3>
+                <button class="close-btn" onclick="closeModal('addClubModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addClubForm">
+                    <div class="form-group">
+                        <label for="clubName">Club Name</label>
+                        <input type="text" id="clubName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clubCategory">Category</label>
+                        <select id="clubCategory" required>
+                            <option value="academic">Academic</option>
+                            <option value="sports">Sports</option>
+                            <option value="arts">Arts & Culture</option>
+                            <option value="technology">Technology</option>
+                            <option value="service">Community Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clubDescription">Description</label>
+                        <textarea id="clubDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('addClubModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Create Club</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register New User</h3>
+                <button class="close-btn" onclick="closeModal('registrationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="gradient-form">
+                    <h2>User Registration</h2>
+                    <p style="text-align: center; color: white; margin-bottom: 1.5rem;">Register as a Student, Teacher, or Club President</p>
+
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="userType">User Type</label>
+                            <select id="userType" required onchange="toggleRegistrationFields()">
+                                <option value="">Select User Type</option>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="president">Club President</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userName">Full Name</label>
+                            <input type="text" id="userName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">Email</label>
+                            <input type="email" id="userEmail" required>
+                        </div>
+                        <div id="studentFields" class="user-type-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="studentMajor">Major</label>
+                                <input type="text" id="studentMajor">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentYear">Year</label>
+                                <select id="studentYear">
+                                    <option value="Freshman">Freshman</option>
+                                    <option value="Sophomore">Sophomore</option>
+                                    <option value="Junior">Junior</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="studentSkills">Skills (comma separated)</label>
+                                <input type="text" id="studentSkills" placeholder="JavaScript, Python, Leadership">
+                            </div>
+                        </div>
+                        <div id="teacherFields" class="user-type-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="teacherDepartment">Department</label>
+                                <input type="text" id="teacherDepartment">
+                            </div>
+                        </div>
+                        <div id="presidentFields" class="user-type-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="presidentClub">Club</label>
+                                <select id="presidentClub">
+                                    <option value="">Select Club</option>
+                                    <option value="C1">Computer Science Club</option>
+                                    <option value="C2">Basketball Team</option>
+                                    <option value="C3">Debate Society</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="closeModal('registrationModal')">Cancel</button>
+                            <button type="submit" class="btn-primary">Register User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scheduleInterviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule Interview</h3>
+                <button class="close-btn" onclick="closeModal('scheduleInterviewModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleInterviewForm">
+                    <div class="form-group">
+                        <label for="interviewStudent">Student</label>
+                        <select id="interviewStudent" required>
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="interviewClub">Club</label>
+                        <select id="interviewClub" required>
+                            <option value="">Select Club</option>
+                            <option value="C1">Computer Science Club</option>
+                            <option value="C2">Basketball Team</option>
+                            <option value="C3">Debate Society</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="interviewDate">Date & Time</label>
+                        <input type="datetime-local" id="interviewDate" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('scheduleInterviewModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Schedule Interview</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="addProjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Project</h3>
+                <button class="close-btn" onclick="closeModal('addProjectModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addProjectForm">
+                    <div class="form-group">
+                        <label for="projectName">Project Name</label>
+                        <input type="text" id="projectName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectClub">Club</label>
+                        <select id="projectClub" required>
+                            <option value="">Select Club</option>
+                            <option value="C1">Computer Science Club</option>
+                            <option value="C2">Basketball Team</option>
+                            <option value="C3">Debate Society</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Description</label>
+                        <textarea id="projectDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectStartDate">Start Date</label>
+                        <input type="date" id="projectStartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectEndDate">End Date</label>
+                        <input type="date" id="projectEndDate" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('addProjectModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Create Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
