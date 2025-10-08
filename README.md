@@ -35,5 +35,5 @@ A modern, responsive web application for managing student club memberships, inte
 - **Storage**: Browser LocalStorage
 - **No External Dependencies**
 
-## 📁 Project Structure
+
 
